@@ -1,0 +1,13 @@
+# Ignorar tudo em mage_data, mas manter o .gitignore dentro dela
+mage_data/*
+!mage_data/.gitignore
+
+# Python caches
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+
+# Environment files
+.env
