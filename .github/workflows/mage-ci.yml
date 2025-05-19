@@ -1,0 +1,30 @@
+name: Mage CI  # Nome do workflow
+
+on:
+  push:                                         # Executa quando der push na branch main
+    branches: [ main ]
+  pull_request:                                 # Ou quando abrir pull request para main
+
+jobs:
+  run_pipeline:                                 # Nome do job
+    runs-on: ubuntu-latest                      # Tipo de máquina virtual
+
+    steps:            
+      - name: Checkout repository               # Etapa: clonar o repositório
+        uses: actions/checkout@v3               # Ação pronta
+
+      - name: Set up Docker Buildx              # Etapa: preparar Docker
+        uses: docker/setup-buildx-action@v2     # Ação pronta
+
+      - name: Start Mage container              # Etapa: subir container Mage
+        run: docker compose up -d               # ← Comando real executado na VM
+
+      - name: Run Mage pipeline
+        run: docker compose exec mage mage run ingest_airbnb_mongo
+
+            # docker compose exec → executa um comando dentro de um container que já está rodando.
+            # mage → é o nome do serviço definido no seu docker-compose.yml (provavelmente está assim lá).
+            # mage run ingest_airbnb_mongo → é o comando do Mage para rodar um pipeline chamado ingest_airbnb_mongo.
+      
+      - name: Stop containers                   # Para e remove:
+        run: docker compose down                # Todos os containers -> As redes internas criadas
