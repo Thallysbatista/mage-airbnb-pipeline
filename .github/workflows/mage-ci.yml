@@ -20,7 +20,7 @@ jobs:
         run: docker compose up -d               # ← Comando real executado na VM
 
       - name: Run Mage pipeline
-        run: docker compose exec mage mage run /home/src default_repo ingest_airbnb_mongo
+        run: docker compose exec mage mage run /home/src/default_repo ingest_airbnb_mongo
 
             # /home/src: É o diretório onde o Mage monta o volume (./mage_data:/home/src)
             # default_repo → Nome do repositório Mage (pasta)
