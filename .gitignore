@@ -1,6 +1,8 @@
-# Ignorar tudo em mage_data, mas manter o .gitignore dentro dela
+# — Pipeline code (não ignorar)
 mage_data/*
 !mage_data/.gitignore
+!mage_data/default_repo/
+!mage_data/default_repo/**
 
 # Python caches
 __pycache__/
@@ -11,3 +13,6 @@ __pycache__/
 
 # Environment files
 .env
+
+# Segurança - não subir credenciais do GCP
+mage_data/gcp_credentials.json
