@@ -7,3 +7,4 @@ services:
       - ./mage_data:/home/src
       - ./mage_data/gcp_credentials.json:/home/src/gcp_credentials.json
     restart: always
+ 
