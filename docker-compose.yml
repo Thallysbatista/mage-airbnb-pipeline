@@ -4,7 +4,10 @@ services:
     ports:
       - 6789:6789
     volumes:
-      - ./mage_data:/home/src
-      - ./mage_data/gcp_credentials.json:/home/src/gcp_credentials.json
+      - ./mage_data/default_repo:/home/src/default_repo
+      - ./mage_data/gcp_credentials.json:/home/src/gcp_credentials.json:ro
     restart: always
+
+
+    
   

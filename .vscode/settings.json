@@ -1,0 +1,3 @@
+{
+  "dbt.cliPath": "${workspaceFolder}/venv/Scripts/dbt.exe"
+}

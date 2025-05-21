@@ -1,26 +1,43 @@
-name: Mage CI  # Nome do workflow
+name: Mage CI
 
 on:
-  push:                                         # Executa quando der push na branch main
+  push:
     branches: [ main ]
-  pull_request:                                 # Ou quando abrir pull request para main
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  run_pipeline:                                 # Nome do job
-    runs-on: ubuntu-latest                      # Tipo de máquina virtual
+  ingest:
+    runs-on: ubuntu-latest
 
-    steps:            
-      - name: Checkout repository               # Etapa: clonar o repositório
-        uses: actions/checkout@v3               # Ação pronta
+    steps:
+      # 1) Busca o seu código
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx              # Etapa: preparar Docker
-        uses: docker/setup-buildx-action@v2     # Ação pronta
+      # 2) Garante que existe a pasta mage_data e cria o JSON de credenciais
+      - name: Prepare GCP credentials
+        run: |
+          mkdir -p mage_data
+          echo "${{ secrets.GCP_CREDENTIALS_JSON }}" > mage_data/gcp_credentials.json
+          chmod 600 mage_data/gcp_credentials.json
 
-      - name: Start Mage container              # Etapa: subir container Mage
-        run: docker compose up -d               # ← Comando real executado na VM
+      # 3) Sobe o container Mage
+      - name: Start Mage container
+        run: docker compose up -d
 
+      # 4) Aguarda o Mage ficar pronto (opcional, mas evita race conditions)
+      - name: Wait for Mage API
+        run: |
+          for i in $(seq 1 10); do
+            curl --fail http://localhost:6789/health && break
+            sleep 3
+          done
+
+      # 5) Executa a pipeline dentro do container
       - name: Run Mage pipeline
-        run: docker compose exec mage mage run /home/src/default_repo ingest_airbnb_mongo
+        run: docker compose exec mage \
+               mage run /home/src/default_repo ingest_airbnb_mongo
 
             # /home/src: É o diretório onde o Mage monta o volume (./mage_data:/home/src)
             # default_repo → Nome do repositório Mage (pasta)
@@ -28,6 +45,3 @@ jobs:
             # docker compose exec → executa um comando dentro de um container que já está rodando.
             # mage → é o nome do serviço definido no seu docker-compose.yml (provavelmente está assim lá).
             # mage run ingest_airbnb_mongo → é o comando do Mage para rodar um pipeline chamado ingest_airbnb_mongo.
-      
-      - name: Stop containers                   # Para e remove:
-        run: docker compose down                # Todos os containers -> As redes internas criadas
