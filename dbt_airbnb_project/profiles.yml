@@ -1,0 +1,12 @@
+dbt_airbnb_project:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: mage-airbnb-pipeline
+      dataset: raw_airbnb
+      threads: 4
+      timeout_seconds: 300
+      location: US
+      keyfile: C:/Users/thall/mage_airbnb_project/mage_data/gcp_credentials.json

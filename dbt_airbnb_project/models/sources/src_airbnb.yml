@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw_airbnb              # nome do schema no BigQuery
+    database: mage-airbnb-pipeline  # nome do projeto no GCP
+    schema: raw_airbnb
+    tables:
+      - name: listings_and_reviews_raw  # nome da tabela bruta no BigQuery
+        description: >
+          Dados brutos extraídos do MongoDB contendo detalhes de propriedades listadas no Airbnb.
