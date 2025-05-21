@@ -7,7 +7,7 @@ services:
       - ./mage_data/default_repo:/home/src/default_repo
       - ./mage_data/gcp_credentials.json:/home/src/gcp_credentials.json:ro
     restart: always
-
-
+ 
+ 
      
   
