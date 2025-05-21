@@ -11,22 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1) Busca o seu código
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2) Garante que existe a pasta mage_data e cria o JSON de credenciais
       - name: Prepare GCP credentials
         run: |
           mkdir -p mage_data
-          echo "${{ secrets.GCP_CREDENTIALS_JSON }}" > mage_data/gcp_credentials.json
+          cat << 'EOF' > mage_data/gcp_credentials.json
+          ${{ secrets.GCP_CREDENTIALS_JSON }}
+          EOF
           chmod 600 mage_data/gcp_credentials.json
 
-      # 3) Sobe o container Mage
       - name: Start Mage container
         run: docker compose up -d
 
-      # 4) Aguarda o Mage ficar pronto (opcional, mas evita race conditions)
       - name: Wait for Mage API
         run: |
           for i in $(seq 1 10); do
@@ -34,13 +32,6 @@ jobs:
             sleep 3
           done
 
-      # 5) Executa a pipeline dentro do container
       - name: Run Mage pipeline
-        run: docker compose exec mage mage run /home/src/default_repo ingest_airbnb_mongo
-
-            # /home/src: É o diretório onde o Mage monta o volume (./mage_data:/home/src)
-            # default_repo → Nome do repositório Mage (pasta)
-            # PIPELINE_UUID → O nome exato do seu pipeline, que é ingest_airbnb_mongo
-            # docker compose exec → executa um comando dentro de um container que já está rodando.
-            # mage → é o nome do serviço definido no seu docker-compose.yml (provavelmente está assim lá).
-            # mage run ingest_airbnb_mongo → é o comando do Mage para rodar um pipeline chamado ingest_airbnb_mongo.
+        run: |
+          docker compose exec mage mage run /home/src/default_repo ingest_airbnb_mongo
