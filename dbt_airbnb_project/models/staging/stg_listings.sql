@@ -1,18 +1,13 @@
-{{ config(
-    materialized='table'
-) }}
+{{ config(materialized='table') }}
 
 with source as (
-
     select * 
     from {{ source('raw_airbnb', 'listings_and_reviews_raw') }}
-
 ),
 
 renamed as (
-
     select
-        _id as listing_id,
+        _id                     as listing_id,
         name,
         description,
         property_type,
@@ -27,13 +22,9 @@ renamed as (
         number_of_reviews,
         bathrooms,
         price,
-        address.country as country,
-        address.market as market,
-        host.host_id as host_id,
-        host.host_name as host_name,
-        host.host_location as host_location
+        address.country        as country,
+        address.market         as market
     from source
-
 )
 
 select * from renamed

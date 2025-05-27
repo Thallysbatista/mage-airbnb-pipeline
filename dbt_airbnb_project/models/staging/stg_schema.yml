@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_listings
+    description: "Staging: todas as colunas de listagem, renomeadas e tipadas."
+    columns:
+      - name: listing_id
+        description: "PK do anúncio (do Mongo _id)"
+        tests: [not_null, unique]
+      - name: name
+        tests: [not_null]
+      - name: price
+        tests: [not_null]
+
+  - name: stg_hosts
+    description: "Staging: dados de host extraídos do documento de listagem."
+    columns:
+      - name: host_id
+        tests: [not_null, unique]
+      - name: host_name
+      - name: host_location
