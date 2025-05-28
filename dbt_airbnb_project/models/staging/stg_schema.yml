@@ -19,3 +19,61 @@ models:
         tests: [not_null, unique]
       - name: host_name
       - name: host_location
+
+  - name: stg_reviews
+    description: "Cada review vira uma linha; explode o array reviews."
+    columns:
+      - name: review_id
+        description: "ID único do review."
+        tests:
+          - unique
+          - not_null
+      - name: listing_id
+        description: "ID do anúncio associado."
+        tests:
+          - not_null
+      - name: date
+        description: "Data do comentário."
+      - name: reviewer_name
+        description: "Nome de quem comentou."
+      - name: comments
+        description: "Texto do comentário."
+
+
+  - name: stg_availability
+    description: "Transforma o objeto `availability` em colunas de disponibilidade para 30, 60, 90 e 365 dias"
+    columns:
+      - name: listing_id
+        description: "ID do anúncio"
+      - name: available_30
+        description: "Quantidade de dias disponíveis nos próximos 30 dias"
+      - name: available_60
+        description: "Quantidade de dias disponíveis nos próximos 60 dias"
+      - name: available_90
+        description: "Quantidade de dias disponíveis nos próximos 90 dias"
+      - name: available_365
+        description: "Quantidade de dias disponíveis nos próximos 365 dias"
+
+  - name: stg_address
+    description: "Extrai e normaliza o objeto `address` do JSON original"
+    columns:
+      - name: listing_id
+        description: "ID do anúncio"
+      - name: street
+        description: "Rua e cidade"
+      - name: suburb
+        description: "Bairro"
+      - name: government_area
+        description: "Área administrativa"
+      - name: market
+        description: "Mercado (região) do anúncio"
+      - name: country
+        description: "Nome do país"
+      - name: country_code
+        description: "Código ISO do país"
+      - name: latitude
+        description: "Latitude (gral. -22.x)"
+      - name: longitude
+        description: "Longitude (gral. -43.x)"
+      - name: is_location_exact
+        description: "Se a API marcou a localização como exata"
