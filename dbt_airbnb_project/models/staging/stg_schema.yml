@@ -11,6 +11,8 @@ models:
         tests: [not_null]
       - name: price
         tests: [not_null]
+      - name: host_id
+        description: "PK do host"
 
   - name: stg_hosts
     description: "Staging: dados de host extraídos do documento de listagem."

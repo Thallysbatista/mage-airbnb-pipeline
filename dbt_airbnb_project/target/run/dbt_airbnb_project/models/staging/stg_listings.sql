@@ -18,6 +18,7 @@ with source as (
 
 select
     cast(_id                      as STRING)   as listing_id
+  ,cast(host.host_id              as STRING)   as host_id  
   ,cast(name                      as STRING)   as name
   ,cast(description               as STRING)   as description
   ,cast(property_type             as STRING)   as property_type
