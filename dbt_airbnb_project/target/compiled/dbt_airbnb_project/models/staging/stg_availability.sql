@@ -1,17 +1,16 @@
--- models/staging/stg_availability.sql
 
 
 with src as (
   select
-    _id as listing_id,
-    availability
+    _id                                   as listing_id
+  , availability
   from `mage-airbnb-pipeline`.`raw_airbnb`.`listings_and_reviews_raw`
 )
 
 select
-  listing_id,
-  availability.availability_30  as available_30,
-  availability.availability_60  as available_60,
-  availability.availability_90  as available_90,
-  availability.availability_365 as available_365
+    listing_id
+  ,cast(availability.availability_30  as INT64) as available_30
+  ,cast(availability.availability_60  as INT64) as available_60
+  ,cast(availability.availability_90  as INT64) as available_90
+  ,cast(availability.availability_365 as INT64) as available_365
 from src

@@ -77,3 +77,57 @@ models:
         description: "Longitude (gral. -43.x)"
       - name: is_location_exact
         description: "Se a API marcou a localização como exata"
+
+  - name: stg_listings_and_reviews
+    description: >
+      Tabela staging com os principais atributos do documento listings_and_reviews_raw,
+      incluindo chaves para relacionamento com hosts, reviews e calendário, além de 
+      atributos relevantes para análise como preço e pontuação.
+    columns:
+      - name: listing_id
+        description: Identificador único do imóvel (listing)
+        tests:
+          - not_null
+          - unique
+
+      - name: host_id
+        description: Identificador do host proprietário do listing
+
+      - name: name
+        description: Nome do anúncio do imóvel
+
+      - name: room_type
+        description: Tipo de quarto listado (ex; Entire home, Private room)
+
+      - name: property_type
+        description: Tipo de propriedade (ex; Apartment, House)
+
+      - name: price
+        description: Preço do imóvel por noite
+
+      - name: minimum_nights
+        description: Número mínimo de noites exigidas
+
+      - name: maximum_nights
+        description: Número máximo de noites permitidas
+
+      - name: number_of_reviews
+        description: Quantidade total de reviews recebidas
+
+      - name: number_of_people
+        description: Quantidade total de hóspedes 
+
+      - name: number_of_bedrooms
+        description: Quantidade total de quartos
+
+      - name: number_of_beds
+        description: Quantidade total camas
+
+      - name: review_score
+        description: Média de pontuação dos reviews
+
+      - name: country
+        description: País onde o imóvel está localizado
+
+      - name: market
+        description: Mercado (cidade ou região) do imóvel

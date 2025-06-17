@@ -1,3 +1,7 @@
 {
-  "dbt.cliPath": "${workspaceFolder}/venv/Scripts/dbt.exe"
+  // aponta pro executável do dbt dentro do venv
+  "dbt.cliPath": "${workspaceFolder}/venv/Scripts/dbt.exe",
+  // Python do venv também
+  "python.pythonPath": "${workspaceFolder}/venv/Scripts/python.exe",
+  "dbt.enableNewLineagePanel": true
 }

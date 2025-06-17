@@ -1,24 +1,21 @@
-{{ config(
-    materialized = 'table'
-) }}
+{{ config(materialized = 'table') }}
 
 with source as (
-    select
-        _id           as listing_id
-        ,reviews
-    from {{ source('raw_airbnb', 'listings_and_reviews_raw') }}
+  select
+      _id     as listing_id
+    , reviews
+  from {{ source('raw_airbnb', 'listings_and_reviews_raw') }}
 ),
 
 exploded as (
-    -- “explode” o array de reviews em linhas individuais
-    select
-        source.listing_id
-        ,review.reviewer_id             as reviewer_id
-        ,review.date                    as date
-        ,review.reviewer_name           as reviewer_name
-        ,review.comments                as comments
-    from source
-    cross join unnest(reviews) as review
+  select
+    cast(source.listing_id          as STRING)   as listing_id
+    ,cast(review.reviewer_id        as STRING)   as reviewer_id
+    ,cast(review.date               as DATE)     as date
+    ,cast(review.reviewer_name      as STRING)   as reviewer_name
+    ,cast(review.comments           as STRING)   as comments
+  from source
+  cross join unnest(reviews) as review
 )
 
 select * from exploded

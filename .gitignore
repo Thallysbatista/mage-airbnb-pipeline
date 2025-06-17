@@ -16,3 +16,10 @@ __pycache__/
 
 # Segurança - não subir credenciais do GCP
 mage_data/gcp_credentials.json
+
+# dbt local profiles
+dbt_airbnb_project/profiles*.yml
+.dbt/
+
+# ignore dbt user file
+dbt_airbnb_project/.user.yml
