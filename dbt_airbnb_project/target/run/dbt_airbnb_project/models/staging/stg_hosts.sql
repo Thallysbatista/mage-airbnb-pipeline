@@ -1,15 +1,15 @@
 
-  
-    
+
+
 
     create or replace table `mage-airbnb-pipeline`.`raw_airbnb`.`stg_hosts`
-      
-    
-    
+
+
+
 
     OPTIONS()
     as (
-      
+
 
 with source as (
   select *
@@ -22,4 +22,3 @@ select
   ,cast(host.host_location as STRING)   as host_location
 from source
     );
-  

@@ -83,7 +83,7 @@ models:
   - name: stg_listings_and_reviews
     description: >
       Tabela staging com os principais atributos do documento listings_and_reviews_raw,
-      incluindo chaves para relacionamento com hosts, reviews e calendário, além de 
+      incluindo chaves para relacionamento com hosts, reviews e calendário, além de
       atributos relevantes para análise como preço e pontuação.
     columns:
       - name: listing_id
@@ -117,7 +117,7 @@ models:
         description: Quantidade total de reviews recebidas
 
       - name: number_of_people
-        description: Quantidade total de hóspedes 
+        description: Quantidade total de hóspedes
 
       - name: number_of_bedrooms
         description: Quantidade total de quartos

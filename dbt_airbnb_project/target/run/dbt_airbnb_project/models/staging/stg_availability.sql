@@ -1,15 +1,15 @@
 
-  
-    
+
+
 
     create or replace table `mage-airbnb-pipeline`.`raw_airbnb`.`stg_availability`
-      
-    
-    
+
+
+
 
     OPTIONS()
     as (
-      
+
 
 with src as (
   select
@@ -26,4 +26,3 @@ select
   ,cast(availability.availability_365 as INT64) as available_365
 from src
     );
-  

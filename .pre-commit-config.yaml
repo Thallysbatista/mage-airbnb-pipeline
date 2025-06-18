@@ -1,0 +1,26 @@
+default_stages: [commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer         # Garante linha em branco ao final de arquivos
+        exclude: ^venv/
+      - id: trailing-whitespace       # Remove espaços no fim de linhas
+        exclude: ^venv/
+      - id: check-yaml                # Valida sintaxe de arquivos YAML
+        exclude: ^venv/
+      - id: check-added-large-files   # Bloqueia arquivos grandes por engano
+        exclude: ^venv/
+      - id: check-merge-conflict      # Bloqueia commits com conflitos não resolvidos
+        exclude: ^venv/
+      - id: check-case-conflict       # Evita problemas com nomes de arquivos conflitantes em case-sensitive
+        exclude: ^venv/
+
+  - repo: local
+    hooks:
+    - id: block-profiles-yml
+      name: Block commit of profiles.yml
+      entry: bash -c 'for file in "$@"; do if [[ "$file" == *"profiles.yml" ]]; then echo "Blocking commit of $file"; exit 1; fi; done'
+      language: system
+      types: [file]

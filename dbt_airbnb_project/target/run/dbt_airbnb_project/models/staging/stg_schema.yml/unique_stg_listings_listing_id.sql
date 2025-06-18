@@ -4,11 +4,11 @@
       count(*) != 0 as should_warn,
       count(*) != 0 as should_error
     from (
-      
-    
-  
-    
-    
+
+
+
+
+
 
 with dbt_test__target as (
 
@@ -28,7 +28,7 @@ having count(*) > 1
 
 
 
-  
-  
-      
+
+
+
     ) dbt_internal_test

@@ -1,11 +1,11 @@
 
-  
-    
+
+
 
     create or replace table `mage-airbnb-pipeline`.`raw_airbnb`.`stg_calendar`
-      
-    
-    
+
+
+
 
     OPTIONS()
     as (
@@ -27,4 +27,3 @@ select
   availability.availability_365 as available_365
 from src
     );
-  

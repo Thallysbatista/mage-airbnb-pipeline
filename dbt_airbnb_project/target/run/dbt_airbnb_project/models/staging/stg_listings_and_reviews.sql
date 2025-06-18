@@ -1,15 +1,15 @@
 
-  
-    
+
+
 
     create or replace table `mage-airbnb-pipeline`.`raw_airbnb`.`stg_listings_and_reviews`
-      
-    
-    
+
+
+
 
     OPTIONS()
     as (
-      
+
 
 with source as (
   select
@@ -33,4 +33,3 @@ with source as (
 
 select * from source
     );
-  

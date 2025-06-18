@@ -1,15 +1,15 @@
 
-  
-    
+
+
 
     create or replace table `mage-airbnb-pipeline`.`raw_airbnb`.`stg_address`
-      
-    
-    
+
+
+
 
     OPTIONS()
     as (
-      
+
 
 with src as (
   select
@@ -31,4 +31,3 @@ select
   ,cast(address.location.is_location_exact as BOOLEAN)      as is_location_exact
 from src
     );
-  

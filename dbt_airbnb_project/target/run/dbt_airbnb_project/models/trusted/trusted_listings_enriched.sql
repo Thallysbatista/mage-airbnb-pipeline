@@ -1,11 +1,11 @@
 
-  
-    
+
+
 
     create or replace table `mage-airbnb-pipeline`.`raw_airbnb`.`trusted_listings_enriched`
-      
-    
-    
+
+
+
 
     OPTIONS()
     as (
@@ -65,4 +65,3 @@ left join hosts       h  on l.host_id = h.host_id
 left join address     a  on l.listing_id = a.listing_id
 left join availability av on l.listing_id = av.listing_id
     );
-  
