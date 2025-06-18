@@ -45,6 +45,13 @@ select
   ,a.latitude
   ,a.longitude
   ,a.is_location_exact
+  ,l.review_scores_rating
+  ,l.review_scores_accuracy
+  ,l.review_scores_cleanliness
+  ,l.review_scores_checkin
+  ,l.review_scores_communication
+  ,l.review_scores_location
+  ,l.review_scores_value
   ,av.available_30
   ,av.available_60
   ,av.available_90

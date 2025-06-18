@@ -12,90 +12,96 @@ models:
         tests:
           - not_null
           - unique
-
       - name: name
         description: "Nome do imóvel ou anúncio"
-
       - name: description
         description: "Descrição completa da propriedade"
-
       - name: property_type
         description: "Tipo de propriedade (ex: apartamento, casa)"
-
       - name: room_type
         description: "Tipo de quarto (ex: Entire home/apt, Private room)"
-
       - name: bed_type
         description: "Tipo de cama ofertada"
-
       - name: minimum_nights
         description: "Número mínimo de noites para reserva"
-
       - name: maximum_nights
         description: "Número máximo de noites permitidas"
-
       - name: cancellation_policy
         description: "Política de cancelamento do imóvel"
-
       - name: accommodates
         description: "Capacidade máxima de hóspedes"
-
       - name: bedrooms
         description: "Número de quartos"
-
       - name: beds
         description: "Número de camas"
-
       - name: number_of_reviews
         description: "Número total de reviews recebidos"
-
       - name: bathrooms
         description: "Quantidade de banheiros (pode incluir frações)"
-
       - name: price
         description: "Preço da diária (em moeda local)"
-
       - name: host_id
         description: "ID do host proprietário da listagem"
-
       - name: host_name
         description: "Nome do anfitrião"
-
       - name: host_location
         description: "Localização do anfitrião"
-
       - name: street
         description: "Endereço ou rua do imóvel"
-
       - name: suburb
         description: "Bairro ou sub-região"
-
       - name: government_area
         description: "Área administrativa/local governamental"
-
       - name: market
         description: "Cidade ou região do mercado local"
-
       - name: country
         description: "País do imóvel"
-
       - name: latitude
         description: "Coordenada de latitude do imóvel"
-
       - name: longitude
         description: "Coordenada de longitude do imóvel"
-
       - name: is_location_exact
         description: "Se a localização foi marcada como exata pelo host"
-
       - name: available_30
         description: "Dias disponíveis nos próximos 30 dias"
-
       - name: available_60
         description: "Dias disponíveis nos próximos 60 dias"
-
       - name: available_90
         description: "Dias disponíveis nos próximos 90 dias"
-
       - name: available_365
         description: "Dias disponíveis nos próximos 365 dias"
+      - name: review_scores_rating
+        description: "Nota geral média das avaliações dos hóspedes"
+      - name: review_scores_accuracy
+        description: "Nota referente à precisão da descrição do anúncio em relação ao que foi entregue"
+      - name: review_scores_cleanliness
+        description: "Nota dada pelos hóspedes sobre a limpeza do local"
+      - name: review_scores_checkin
+        description: "Nota referente à experiência no processo de check-in"
+      - name: review_scores_communication
+        description: "Nota sobre a qualidade da comunicação entre o anfitrião e o hóspede"
+      - name: review_scores_location
+        description: "Nota referente à localização do imóvel segundo os hóspedes"
+      - name: review_scores_value
+        description: "Nota sobre o custo-benefício percebido pelos hóspedes"
+
+  - name: trusted_reviews_aggregated
+    description: >
+      Tabela agregada de reviews por listing_id, contendo contagem de reviews,
+      comprimento médio dos comentários e datas extrema de review.
+    columns:
+      - name: listing_id
+        description: ID do anúncio
+        tests:
+          - not_null
+          - unique
+      - name: review_count
+        description: Total de reviews para o anúncio
+      - name: avg_comment_length
+        description: Comprimento médio dos comentários
+      - name: total_comment_length
+        description: Soma dos comprimentos dos comentários
+      - name: latest_review_date
+        description: Data mais recente de review
+      - name: first_review_date
+        description: Primeira data de review

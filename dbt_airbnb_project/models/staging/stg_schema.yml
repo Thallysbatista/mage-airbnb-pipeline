@@ -13,6 +13,48 @@ models:
         tests: [not_null]
       - name: host_id
         description: "PK do host"
+      - name: review_scores_rating
+        description: "Nota geral média das avaliações dos hóspedes"
+      - name: review_scores_accuracy
+        description: "Nota referente à precisão da descrição do anúncio em relação ao que foi entregue"
+      - name: review_scores_cleanliness
+        description: "Nota dada pelos hóspedes sobre a limpeza do local"
+      - name: review_scores_checkin
+        description: "Nota referente à experiência no processo de check-in"
+      - name: review_scores_communication
+        description: "Nota sobre a qualidade da comunicação entre o anfitrião e o hóspede"
+      - name: review_scores_location
+        description: "Nota referente à localização do imóvel segundo os hóspedes"
+      - name: review_scores_value
+        description: "Nota sobre o custo-benefício percebido pelos hóspedes"
+      - name: description
+        description: "Descrição do anúncio escrita pelo anfitrião"
+      - name: property_type
+        description: "Tipo de propriedade (ex: apartamento, casa, etc.)"
+      - name: room_type
+        description: "Tipo de quarto ofertado no anúncio"
+      - name: bed_type
+        description: "Tipo de cama disponibilizada"
+      - name: minimum_nights
+        description: "Número mínimo de noites para reserva"
+      - name: maximum_nights
+        description: "Número máximo de noites para reserva"
+      - name: cancellation_policy
+        description: "Política de cancelamento definida pelo anfitrião"
+      - name: accommodates
+        description: "Número de pessoas que o local acomoda"
+      - name: bedrooms
+        description: "Número de quartos"
+      - name: beds
+        description: "Número de camas"
+      - name: number_of_reviews
+        description: "Número total de reviews recebidos"
+      - name: bathrooms
+        description: "Número de banheiros"
+      - name: country
+        description: "País onde o imóvel está localizado"
+      - name: market
+        description: "Área de mercado ou região designada pelo Airbnb"
 
   - name: stg_hosts
     description: "Staging: dados de host extraídos do documento de listagem."
