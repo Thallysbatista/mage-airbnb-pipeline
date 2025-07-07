@@ -3,5 +3,6 @@
   "dbt.cliPath": "${workspaceFolder}/venv/Scripts/dbt.exe",
   // Python do venv também
   "python.pythonPath": "${workspaceFolder}/venv/Scripts/python.exe",
-  "dbt.enableNewLineagePanel": true
+  "dbt.enableNewLineagePanel": true,
+  "dbt.projectDebugging": false
 }
