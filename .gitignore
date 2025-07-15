@@ -24,3 +24,6 @@ dbt_airbnb_project/profiles*.yml
 # ignore dbt user file
 dbt_airbnb_project/.user.yml
 dbt_airbnb_project/profiles.yml
+
+# não versionar artefatos compilados pelo dbt
+/target/

@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: mart_listings_performance
+    description: >
+      Fato principal de desempenho de anúncios, combinando dados de listagens com métricas de reviews e disponibilidade.
+    columns:
+      - name: listing_id
+        tests: [not_null, unique]
+      - name: price
+        description: "Preço da diária"
+        tests: [not_null]
+      - name: avg_review_score
+        description: "Nota média geral"
+      - name: total_reviews
+        description: "Quantidade total de reviews"
+      - name: avail_next_30d
+        description: "Dias disponíveis nos próximos 30 dias"
+
+  - name: mart_host_summary
+    description: "Resumo por host: total de anúncios, preço médio e nota média."
+    columns:
+      - name: host_id
+        tests: [not_null]
+      - name: total_listings
+        description: "Número de imóveis por host"
+      - name: avg_price_per_host
+      - name: avg_host_score
+
+  - name: mart_reviews_summary
+    description: "Métricas agregadas de reviews por listing_id."
+    columns:
+      - name: listing_id
+        tests: [not_null, unique]
+      - name: review_count
+      - name: avg_comment_length
+      - name: latest_review_date
+      - name: first_review_date

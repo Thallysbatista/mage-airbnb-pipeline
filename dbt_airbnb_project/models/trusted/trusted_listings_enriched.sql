@@ -7,7 +7,7 @@ with listings as (
 ),
 
 hosts as (
-  select * from {{ ref('stg_hosts') }}
+  select * from {{ ref('dim_hosts') }}
 ),
 
 address as (

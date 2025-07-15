@@ -7,7 +7,7 @@ with listings as (
 ),
 
 hosts as (
-  select * from `mage-airbnb-pipeline`.`raw_airbnb`.`stg_hosts`
+  select * from `mage-airbnb-pipeline`.`raw_airbnb`.`dim_hosts`
 ),
 
 address as (

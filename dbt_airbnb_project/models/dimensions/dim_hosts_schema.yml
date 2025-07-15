@@ -1,0 +1,16 @@
+version: 2
+
+models:
+  - name: dim_hosts
+    description: >
+      Tabela de dimensão de anfitriões, deduplicada por host_id.
+    columns:
+      - name: host_id
+        description: "Identificador único do host"
+        tests:
+          - not_null
+          - unique
+      - name: host_name
+        description: "Nome do anfitrião"
+      - name: host_location
+        description: "Localização declarada pelo anfitrião"
