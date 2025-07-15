@@ -4,22 +4,20 @@ Este repositório contém o pipeline completo de ingestão, transformação e en
 
 ## 📁 Estrutura do Projeto
 
-```
-├── analyses/            # Explorações ad-hoc de SQL
-├── macros/              # Macros reutilizáveis (e documentação em macros/docs)
-├── models/
-│   ├── staging/         # Modelos raw: limpeza, cast e rename
-│   ├── dimensions/      # Modelos intermediate: deduplicações (dim_hosts), pivots
-│   ├── trusted/         # Consolidação de entidades: joins business logic
-│   └── delivery/        # Marts: tabelas finalizadas para dashboards Metabase
-├── snapshots/           # Snapshots de alterações históricas
-├── seeds/               # Dados estáticos (ex.: calendário para séries temporais)
-├── tests/               # SQL tests personalizados
-├── macros/docs/         # Documentação das macros em Markdown
-├── profiles.yml         # Credenciais de conexão (não versionar!)
-├── dbt_project.yml      # Configurações do projeto dbt
-├── README.md            # Este documento
-└── .github/workflows/   # Configuração de CI/CD (build, tests, docs)
+```text
+repo-root/
+├── dbt_airbnb_project/   # Código dbt, modelos e configurações
+│   ├── analyses/         # Explorações ad-hoc de SQL
+│   ├── macros/           # Macros reutilizáveis (e documentação em macros/docs)
+│   ├── models/           # Camadas staging, dimensions, trusted, delivery
+│   ├── snapshots/        # Snapshots de alterações históricas
+│   ├── seeds/            # Dados estáticos (ex.: calendário para séries temporais)
+│   ├── tests/            # SQL tests personalizados
+│   ├── profiles.yml      # Credenciais de conexão (não versionar!)
+│   └── dbt_project.yml   # Configurações do projeto dbt
+├── .github/              # Configuração de CI/CD (build, tests, docs)
+├── docker-compose.yml    # Orquestração do Mage via Docker
+└── README.md             # Este documento na raiz do repositório
 ```
 
 ## 🚀 Como começar
