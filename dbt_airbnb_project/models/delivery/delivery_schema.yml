@@ -2,22 +2,28 @@ version: 2
 
 models:
   - name: delivery_listings_performance
-    description: >
-      Fato principal de desempenho de anúncios, combinando dados de listagens com métricas de reviews e disponibilidade.
+    description: Fato principal de desempenho de anúncios, combinando dados enriquecidos das listagens com métricas agregadas de reviews e disponibilidade futura.
     columns:
-      - name: listing_id
-        tests: [not_null, unique]
-      - name: price
-        description: "Preço da diária"
-        tests: [not_null]
-      - name: avg_review_score
-        description: "Nota média geral"
-      - name: total_reviews
-        description: "Quantidade total de reviews"
-      - name: avail_next_30d
-        description: "Dias disponíveis nos próximos 30 dias"
-      - name: avg_price_per_review
-        description: "Preço médio por review. Calculado com safe_divide para evitar divisões por zero."
+    - name: listing_id
+      description: "Identificador único da listagem"
+      tests: [not_null, unique]
+    - name: name
+      description: "Nome do imóvel ou anúncio"
+    - name: market
+      description: "Cidade ou região do mercado local"
+    - name: country
+      description: "País do imóvel"
+    - name: price
+      description: "Preço da diária"
+      tests: [not_null]
+    - name: avg_review_score
+      description: "Nota média geral das avaliações recebidas"
+    - name: total_reviews
+      description: "Quantidade total de reviews por anúncio"
+    - name: avail_next_30d
+      description: "Número de dias disponíveis para reserva nos próximos 30 dias"
+    - name: avail_next_90
+      description: "Número de dias disponíveis para reserva nos próximos 90 dias"
 
   - name: delivery_host_summary
     description: "Resumo por host: total de anúncios, preço médio e nota média."

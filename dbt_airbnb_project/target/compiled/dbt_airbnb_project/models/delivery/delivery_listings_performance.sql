@@ -1,11 +1,13 @@
-
-
 with listings as (
   select * from `mage-airbnb-pipeline`.`raw_airbnb`.`trusted_listings_enriched`
 ),
 
 reviews as (
-  select * from `mage-airbnb-pipeline`.`raw_airbnb`.`trusted_reviews_aggregated`
+  select
+    listing_id
+    ,count(*) as review_count
+  from `mage-airbnb-pipeline`.`raw_airbnb`.`trusted_reviews`
+  group by listing_id
 )
 
 select
@@ -16,7 +18,6 @@ select
   ,l.price
   ,l.review_scores_rating            as avg_review_score
   ,coalesce(r.review_count, 0)       as total_reviews
-  ,r.avg_comment_length              as avg_comment_length
   ,l.available_30                    as avail_next_30d
   ,l.available_90                    as avail_next_90
 from listings l
