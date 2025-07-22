@@ -85,23 +85,16 @@ models:
       - name: review_scores_value
         description: "Nota sobre o custo-benefício percebido pelos hóspedes"
 
-  - name: trusted_reviews_aggregated
+  - name: trusted_reviews
     description: >
-      Tabela agregada de reviews por listing_id, contendo contagem de reviews,
-      comprimento médio dos comentários e datas extrema de review.
+      Tabela com reviews normalizados, sem agregações.
+      Cada linha representa um review com campos relevantes já tratados.
     columns:
       - name: listing_id
         description: ID do anúncio
         tests:
           - not_null
-          - unique
-      - name: review_count
-        description: Total de reviews para o anúncio
-      - name: avg_comment_length
-        description: Comprimento médio dos comentários
-      - name: total_comment_length
-        description: Soma dos comprimentos dos comentários
-      - name: latest_review_date
-        description: Data mais recente de review
-      - name: first_review_date
-        description: Primeira data de review
+      - name: review_comment
+        description: Texto do comentário do hóspede
+      - name: review_date
+        description: Data do review realizado

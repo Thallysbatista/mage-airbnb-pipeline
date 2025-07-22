@@ -5,7 +5,7 @@ with listings as (
 ),
 
 reviews as (
-  select * from {{ ref('trusted_reviews_aggregated') }}
+  select * from {{ ref('trusted_reviews') }}
 )
 
 select

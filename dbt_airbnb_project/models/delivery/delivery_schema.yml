@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: mart_listings_performance
+  - name: delivery_listings_performance
     description: >
       Fato principal de desempenho de anúncios, combinando dados de listagens com métricas de reviews e disponibilidade.
     columns:
@@ -16,8 +16,10 @@ models:
         description: "Quantidade total de reviews"
       - name: avail_next_30d
         description: "Dias disponíveis nos próximos 30 dias"
+      - name: avg_price_per_review
+        description: "Preço médio por review. Calculado com safe_divide para evitar divisões por zero."
 
-  - name: mart_host_summary
+  - name: delivery_host_summary
     description: "Resumo por host: total de anúncios, preço médio e nota média."
     columns:
       - name: host_id
@@ -27,12 +29,24 @@ models:
       - name: avg_price_per_host
       - name: avg_host_score
 
-  - name: mart_reviews_summary
-    description: "Métricas agregadas de reviews por listing_id."
+  - name: delivery_reviews_summary
+    description: "Métricas agregadas de reviews por listing_id, enriquecidas com informações temporais."
     columns:
       - name: listing_id
         tests: [not_null, unique]
       - name: review_count
+        description: "Total de reviews para o anúncio"
       - name: avg_comment_length
+        description: "Comprimento médio dos comentários"
       - name: latest_review_date
+        description: "Data mais recente de review"
       - name: first_review_date
+        description: "Primeira data de review"
+      - name: latest_review_year
+        description: "Ano da última review (join com dim_calendar)"
+      - name: latest_review_month
+        description: "Mês da última review (join com dim_calendar)"
+      - name: latest_review_week
+        description: "Semana da última review (join com dim_calendar)"
+      - name: latest_review_quarter
+        description: "Trimestre da última review (join com dim_calendar)"

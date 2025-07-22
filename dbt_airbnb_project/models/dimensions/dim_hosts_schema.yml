@@ -14,3 +14,11 @@ models:
         description: "Nome do anfitrião"
       - name: host_location
         description: "Localização declarada pelo anfitrião"
+
+  - name: dim_calendar
+    description: "Tabela de datas de 2009 até 2019, para análises temporais"
+    columns:
+      - name: date_day
+        tests:
+          - not_null
+          - unique
