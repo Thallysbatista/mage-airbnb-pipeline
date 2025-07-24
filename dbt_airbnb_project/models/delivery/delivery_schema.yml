@@ -2,57 +2,66 @@ version: 2
 
 models:
   - name: delivery_listings_performance
-    description: Fato principal de desempenho de anúncios, combinando dados enriquecidos das listagens com métricas agregadas de reviews e disponibilidade futura.
-    columns:
-    - name: listing_id
-      description: "Identificador único da listagem"
-      tests: [not_null, unique]
-    - name: name
-      description: "Nome do imóvel ou anúncio"
-    - name: market
-      description: "Cidade ou região do mercado local"
-    - name: country
-      description: "País do imóvel"
-    - name: price
-      description: "Preço da diária"
-      tests: [not_null]
-    - name: avg_review_score
-      description: "Nota média geral das avaliações recebidas"
-    - name: total_reviews
-      description: "Quantidade total de reviews por anúncio"
-    - name: avail_next_30d
-      description: "Número de dias disponíveis para reserva nos próximos 30 dias"
-    - name: avail_next_90
-      description: "Número de dias disponíveis para reserva nos próximos 90 dias"
-
-  - name: delivery_host_summary
-    description: "Resumo por host: total de anúncios, preço médio e nota média."
-    columns:
-      - name: host_id
-        tests: [not_null]
-      - name: total_listings
-        description: "Número de imóveis por host"
-      - name: avg_price_per_host
-      - name: avg_host_score
-
-  - name: delivery_reviews_summary
-    description: "Métricas agregadas de reviews por listing_id, enriquecidas com informações temporais."
+    description: |
+      Mart: desempenho de anúncios. Junta métricas de price, reviews e availability.
+    tags: ['delivery','listings']
     columns:
       - name: listing_id
+        description: "PK do anúncio."
+        tests: [not_null, unique]
+      - name: name
+        description: "Nome do anúncio."
+      - name: market
+        description: "Mercado/região."
+      - name: country
+        description: "País."
+      - name: price
+        description: "Preço por noite."
+        tests: [not_null]
+      - name: avg_review_score
+        description: "Nota média das avaliações."
+      - name: total_reviews
+        description: "Total de reviews."
+      - name: avail_next_30d
+        description: "Disponibilidade em 30 dias."
+      - name: avail_next_90
+        description: "Disponibilidade em 90 dias."
+
+  - name: delivery_host_summary
+    description: "Mart: resumo por host (contagem, preço e nota)."
+    tags: ['delivery','hosts']
+    columns:
+      - name: host_id
+        description: "PK do host."
+        tests: [not_null]
+      - name: total_listings
+        description: "Número de anúncios por host."
+      - name: avg_price_per_host
+        description: "Preço médio por host."
+      - name: avg_host_score
+        description: "Média de nota por host."
+
+  - name: delivery_reviews_summary
+    description: |
+      Mart: métricas de reviews por anúncio, com enrich de calendário.
+    tags: ['delivery','reviews']
+    columns:
+      - name: listing_id
+        description: "PK do anúncio."
         tests: [not_null, unique]
       - name: review_count
-        description: "Total de reviews para o anúncio"
+        description: "Total de reviews."
       - name: avg_comment_length
-        description: "Comprimento médio dos comentários"
+        description: "Média de comprimento de comentários."
       - name: latest_review_date
-        description: "Data mais recente de review"
+        description: "Data do último review."
       - name: first_review_date
-        description: "Primeira data de review"
+        description: "Data do primeiro review."
       - name: latest_review_year
-        description: "Ano da última review (join com dim_calendar)"
+        description: "Ano do último review."
       - name: latest_review_month
-        description: "Mês da última review (join com dim_calendar)"
+        description: "Mês do último review."
       - name: latest_review_week
-        description: "Semana da última review (join com dim_calendar)"
+        description: "Semana do último review."
       - name: latest_review_quarter
-        description: "Trimestre da última review (join com dim_calendar)"
+        description: "Trimestre do último review."

@@ -2,23 +2,41 @@ version: 2
 
 models:
   - name: dim_hosts
-    description: >
-      Tabela de dimensão de anfitriões, deduplicada por host_id.
+    description: "Dimensão de hosts, deduplicada por host_id."
+    tags: ['dimension','hosts']
     columns:
       - name: host_id
-        description: "Identificador único do host"
-        tests:
-          - not_null
-          - unique
+        description: "PK do host."
+        tests: [not_null, unique]
       - name: host_name
-        description: "Nome do anfitrião"
+        description: "Nome do anfitrião."
       - name: host_location
-        description: "Localização declarada pelo anfitrião"
+        description: "Localização do anfitrião."
 
   - name: dim_calendar
-    description: "Tabela de datas de 2009 até 2019, para análises temporais"
+    description: "Dimensão de datas de 2009-01-01 a 2019-12-31."
+    tags: ['dimension','calendar']
     columns:
       - name: date_day
-        tests:
-          - not_null
-          - unique
+        description: "Data (YYYY-MM-DD)."
+        tests: [not_null, unique]
+      - name: year
+        description: "Ano (YYYY)."
+      - name: month
+        description: "Mês (1–12)."
+      - name: year_month
+        description: "Ano-mês (YYYY-MM)."
+      - name: month_name
+        description: "Nome do mês abreviado (Jan, Feb, …)."
+      - name: day_of_week
+        description: "Dia da semana (1=Domingo … 7=Sábado)."
+      - name: day_name
+        description: "Nome do dia da semana."
+      - name: week
+        description: "Semana do ano."
+      - name: quarter
+        description: "Trimestre (1–4)."
+      - name: is_weekend
+        description: "Indicador de fim de semana."
+      - name: is_today
+        description: "É o dia de hoje?"

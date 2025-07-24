@@ -2,99 +2,95 @@ version: 2
 
 models:
   - name: trusted_listings_enriched
-    description: >
-      Modelo trusted que consolida dados de listagens com informações de host, endereço e disponibilidade.
-      Essa tabela integra múltiplas fontes da camada staging para fornecer uma visão rica e unificada de cada imóvel.
-
+    description: |
+      Trusted: consolida listagens com host, endereço e disponibilidade.
+      Ideal para análises de negócio sem preocupações de granularidade.
+    tags: ['trusted','listings','hosts']
     columns:
       - name: listing_id
-        description: "Identificador único da listagem no Airbnb"
-        tests:
-          - not_null
-          - unique
+        description: "PK do anúncio."
+        tests: [not_null, unique]
       - name: name
-        description: "Nome do imóvel ou anúncio"
+        description: "Nome do anúncio."
       - name: description
-        description: "Descrição completa da propriedade"
+        description: "Descrição detalhada."
       - name: property_type
-        description: "Tipo de propriedade (ex: apartamento, casa)"
+        description: "Tipo de propriedade."
       - name: room_type
-        description: "Tipo de quarto (ex: Entire home/apt, Private room)"
+        description: "Tipo de quarto."
       - name: bed_type
-        description: "Tipo de cama ofertada"
+        description: "Tipo de cama."
       - name: minimum_nights
-        description: "Número mínimo de noites para reserva"
+        description: "Mínimo de noites."
       - name: maximum_nights
-        description: "Número máximo de noites permitidas"
+        description: "Máximo de noites."
       - name: cancellation_policy
-        description: "Política de cancelamento do imóvel"
+        description: "Política de cancelamento."
       - name: accommodates
-        description: "Capacidade máxima de hóspedes"
+        description: "Capacidade máxima de hóspedes."
       - name: bedrooms
-        description: "Número de quartos"
+        description: "Número de quartos."
       - name: beds
-        description: "Número de camas"
+        description: "Número de camas."
       - name: number_of_reviews
-        description: "Número total de reviews recebidos"
+        description: "Total de reviews."
       - name: bathrooms
-        description: "Quantidade de banheiros (pode incluir frações)"
+        description: "Total de banheiros."
       - name: price
-        description: "Preço da diária (em moeda local)"
+        description: "Preço por noite."
       - name: host_id
-        description: "ID do host proprietário da listagem"
+        description: "FK do host."
       - name: host_name
-        description: "Nome do anfitrião"
+        description: "Nome do anfitrião."
       - name: host_location
-        description: "Localização do anfitrião"
+        description: "Localização do anfitrião."
       - name: street
-        description: "Endereço ou rua do imóvel"
+        description: "Rua do imóvel."
       - name: suburb
-        description: "Bairro ou sub-região"
+        description: "Bairro."
       - name: government_area
-        description: "Área administrativa/local governamental"
+        description: "Área administrativa."
       - name: market
-        description: "Cidade ou região do mercado local"
+        description: "Mercado/região."
       - name: country
-        description: "País do imóvel"
+        description: "País do imóvel."
       - name: latitude
-        description: "Coordenada de latitude do imóvel"
+        description: "Latitude."
       - name: longitude
-        description: "Coordenada de longitude do imóvel"
+        description: "Longitude."
       - name: is_location_exact
-        description: "Se a localização foi marcada como exata pelo host"
+        description: "Localização exata?"
       - name: available_30
-        description: "Dias disponíveis nos próximos 30 dias"
+        description: "Disponível em 30 dias."
       - name: available_60
-        description: "Dias disponíveis nos próximos 60 dias"
+        description: "Disponível em 60 dias."
       - name: available_90
-        description: "Dias disponíveis nos próximos 90 dias"
+        description: "Disponível em 90 dias."
       - name: available_365
-        description: "Dias disponíveis nos próximos 365 dias"
+        description: "Disponível em 365 dias."
       - name: review_scores_rating
-        description: "Nota geral média das avaliações dos hóspedes"
+        description: "Nota geral."
       - name: review_scores_accuracy
-        description: "Nota referente à precisão da descrição do anúncio em relação ao que foi entregue"
+        description: "Precisão."
       - name: review_scores_cleanliness
-        description: "Nota dada pelos hóspedes sobre a limpeza do local"
+        description: "Limpeza."
       - name: review_scores_checkin
-        description: "Nota referente à experiência no processo de check-in"
+        description: "Check-in."
       - name: review_scores_communication
-        description: "Nota sobre a qualidade da comunicação entre o anfitrião e o hóspede"
+        description: "Comunicação."
       - name: review_scores_location
-        description: "Nota referente à localização do imóvel segundo os hóspedes"
+        description: "Localização."
       - name: review_scores_value
-        description: "Nota sobre o custo-benefício percebido pelos hóspedes"
+        description: "Custo-benefício."
 
   - name: trusted_reviews
-    description: >
-      Tabela com reviews normalizados, sem agregações.
-      Cada linha representa um review com campos relevantes já tratados.
+    description: "Trusted: raw de reviews com comentários e data."
+    tags: ['trusted','reviews']
     columns:
       - name: listing_id
-        description: ID do anúncio
-        tests:
-          - not_null
+        description: "FK do anúncio."
+        tests: [not_null]
       - name: review_comment
-        description: Texto do comentário do hóspede
+        description: "Texto do comentário."
       - name: review_date
-        description: Data do review realizado
+        description: "Data do comentário."

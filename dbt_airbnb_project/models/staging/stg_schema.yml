@@ -2,175 +2,169 @@ version: 2
 
 models:
   - name: stg_listings
-    description: "Staging: todas as colunas de listagem, renomeadas e tipadas."
+    description: |
+      Staging: toda a raw de listagens do Mongo, com colunas renomeadas e tipos corrigidos.
+      Serve de base para análise de anúncios no Airbnb.
+    tags: ['staging','listings']
     columns:
       - name: listing_id
-        description: "PK do anúncio (do Mongo _id)"
+        description: "PK do anúncio (campo `_id` do MongoDB)."
         tests: [not_null, unique]
       - name: name
+        description: "Nome do anúncio."
         tests: [not_null]
       - name: price
+        description: "Preço por noite (moeda local)."
         tests: [not_null]
       - name: host_id
-        description: "PK do host"
+        description: "PK do host (campo `host.host_id`)."
+        tests: [not_null]
       - name: review_scores_rating
-        description: "Nota geral média das avaliações dos hóspedes"
+        description: "Nota geral média (1–100) das avaliações."
       - name: review_scores_accuracy
-        description: "Nota referente à precisão da descrição do anúncio em relação ao que foi entregue"
+        description: "Precisão da descrição do anúncio (1–100)."
       - name: review_scores_cleanliness
-        description: "Nota dada pelos hóspedes sobre a limpeza do local"
+        description: "Limpeza do imóvel (1–100)."
       - name: review_scores_checkin
-        description: "Nota referente à experiência no processo de check-in"
+        description: "Experiência de check-in (1–100)."
       - name: review_scores_communication
-        description: "Nota sobre a qualidade da comunicação entre o anfitrião e o hóspede"
+        description: "Qualidade da comunicação (1–100)."
       - name: review_scores_location
-        description: "Nota referente à localização do imóvel segundo os hóspedes"
+        description: "Avaliação da localização (1–100)."
       - name: review_scores_value
-        description: "Nota sobre o custo-benefício percebido pelos hóspedes"
+        description: "Custo-benefício (1–100)."
       - name: description
-        description: "Descrição do anúncio escrita pelo anfitrião"
+        description: "Descrição completa escrita pelo anfitrião."
       - name: property_type
-        description: "Tipo de propriedade (ex: apartamento, casa, etc.)"
+        description: "Tipo de propriedade (Apartment, House, etc.)."
       - name: room_type
-        description: "Tipo de quarto ofertado no anúncio"
+        description: "Tipo de quarto (Entire home, Private room, etc.)."
       - name: bed_type
-        description: "Tipo de cama disponibilizada"
+        description: "Tipo de cama (Real Bed, Futon, etc.)."
       - name: minimum_nights
-        description: "Número mínimo de noites para reserva"
+        description: "Número mínimo de noites para reserva."
       - name: maximum_nights
-        description: "Número máximo de noites para reserva"
+        description: "Número máximo de noites permitidas."
       - name: cancellation_policy
-        description: "Política de cancelamento definida pelo anfitrião"
+        description: "Política de cancelamento (flexível, moderada, rigorosa)."
       - name: accommodates
-        description: "Número de pessoas que o local acomoda"
+        description: "Número máximo de hóspedes."
       - name: bedrooms
-        description: "Número de quartos"
+        description: "Número de quartos."
       - name: beds
-        description: "Número de camas"
+        description: "Número de camas."
       - name: number_of_reviews
-        description: "Número total de reviews recebidos"
+        description: "Total de reviews que o anúncio já recebeu."
       - name: bathrooms
-        description: "Número de banheiros"
+        description: "Número de banheiros (pode incluir frações)."
       - name: country
-        description: "País onde o imóvel está localizado"
+        description: "País onde o anúncio está localizado."
       - name: market
-        description: "Área de mercado ou região designada pelo Airbnb"
+        description: "Região/mercado (cidade, área) definido pelo Airbnb."
 
   - name: stg_hosts
-    description: "Staging: dados de host extraídos do documento de listagem."
+    description: "Staging: raw dos hosts extraídos de cada anúncio."
+    tags: ['staging','hosts']
     columns:
       - name: host_id
+        description: "PK do host."
         tests: [not_null]
       - name: host_name
+        description: "Nome do anfitrião."
       - name: host_location
+        description: "Localização declarada pelo anfitrião."
 
   - name: stg_reviews
-    description: "Cada review vira uma linha; explode o array reviews."
+    description: "Staging: cada review vira uma linha (explode do array `reviews`)."
+    tags: ['staging','reviews']
     columns:
       - name: reviewer_id
-        description: "ID único do review."
-        tests:
-          - not_null
+        description: "ID do usuário que fez o review."
+        tests: [not_null]
       - name: listing_id
-        description: "ID do anúncio associado."
-        tests:
-          - not_null
-      - name: date
-        description: "Data do comentário."
+        description: "FK que liga ao anúncio."
+        tests: [not_null]
+      - name: review_date
+        description: "Data do review."
       - name: reviewer_name
         description: "Nome de quem comentou."
-      - name: comments
-        description: "Texto do comentário."
-
+      - name: review_comment
+        description: "Texto completo do comentário."
 
   - name: stg_availability
-    description: "Transforma o objeto `availability` em colunas de disponibilidade para 30, 60, 90 e 365 dias"
+    description: "Staging: disponibilidade futura em 30, 60, 90 e 365 dias."
+    tags: ['staging','availability']
     columns:
       - name: listing_id
-        description: "ID do anúncio"
+        description: "FK para anúncio."
       - name: available_30
-        description: "Quantidade de dias disponíveis nos próximos 30 dias"
+        description: "Dias disponíveis nos próximos 30 dias."
       - name: available_60
-        description: "Quantidade de dias disponíveis nos próximos 60 dias"
+        description: "Dias disponíveis nos próximos 60 dias."
       - name: available_90
-        description: "Quantidade de dias disponíveis nos próximos 90 dias"
+        description: "Dias disponíveis nos próximos 90 dias."
       - name: available_365
-        description: "Quantidade de dias disponíveis nos próximos 365 dias"
+        description: "Dias disponíveis nos próximos 365 dias."
 
   - name: stg_address
-    description: "Extrai e normaliza o objeto `address` do JSON original"
+    description: "Staging: explodes do objeto `address` para colunas atômicas."
+    tags: ['staging','address']
     columns:
       - name: listing_id
-        description: "ID do anúncio"
+        description: "FK para anúncio."
       - name: street
-        description: "Rua e cidade"
+        description: "Rua e número ou bairro."
       - name: suburb
-        description: "Bairro"
+        description: "Bairro."
       - name: government_area
-        description: "Área administrativa"
+        description: "Área administrativa."
       - name: market
-        description: "Mercado (região) do anúncio"
+        description: "Área de mercado definida pelo Airbnb."
       - name: country
-        description: "Nome do país"
+        description: "Nome do país."
       - name: country_code
-        description: "Código ISO do país"
+        description: "Código ISO do país."
       - name: latitude
-        description: "Latitude (gral. -22.x)"
+        description: "Latitude do imóvel."
       - name: longitude
-        description: "Longitude (gral. -43.x)"
+        description: "Longitude do imóvel."
       - name: is_location_exact
-        description: "Se a API marcou a localização como exata"
+        description: "Se a localização foi marcada como exata."
 
   - name: stg_listings_and_reviews
-    description: >
-      Tabela staging com os principais atributos do documento listings_and_reviews_raw,
-      incluindo chaves para relacionamento com hosts, reviews e calendário, além de
-      atributos relevantes para análise como preço e pontuação.
+    description: |
+      Staging combinada: traz os principais campos de listagem
+      já preparados para análise (price, score, localização, etc.).
+    tags: ['staging','combined']
     columns:
       - name: listing_id
-        description: Identificador único do imóvel (listing)
-        tests:
-          - not_null
-          - unique
-
+        description: "PK do anúncio"
+        tests: [not_null, unique]
       - name: host_id
-        description: Identificador do host proprietário do listing
-
+        description: "FK do host."
       - name: name
-        description: Nome do anúncio do imóvel
-
+        description: "Nome do anúncio."
       - name: room_type
-        description: Tipo de quarto listado (ex; Entire home, Private room)
-
+        description: "Tipo de quarto."
       - name: property_type
-        description: Tipo de propriedade (ex; Apartment, House)
-
+        description: "Tipo de propriedade."
       - name: price
-        description: Preço do imóvel por noite
-
+        description: "Preço por noite."
       - name: minimum_nights
-        description: Número mínimo de noites exigidas
-
+        description: "Mínimo de noites."
       - name: maximum_nights
-        description: Número máximo de noites permitidas
-
+        description: "Máximo de noites."
       - name: number_of_reviews
-        description: Quantidade total de reviews recebidas
-
+        description: "Total de reviews."
       - name: number_of_people
-        description: Quantidade total de hóspedes
-
+        description: "Capacidade de hóspedes."
       - name: number_of_bedrooms
-        description: Quantidade total de quartos
-
+        description: "Total de quartos."
       - name: number_of_beds
-        description: Quantidade total camas
-
+        description: "Total de camas."
       - name: review_score
-        description: Média de pontuação dos reviews
-
+        description: "Nota média geral."
       - name: country
-        description: País onde o imóvel está localizado
-
+        description: "País do anúncio."
       - name: market
-        description: Mercado (cidade ou região) do imóvel
+        description: "Mercado/região."
