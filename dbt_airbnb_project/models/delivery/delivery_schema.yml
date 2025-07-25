@@ -24,7 +24,7 @@ models:
         description: "Total de reviews."
       - name: avail_next_30d
         description: "Disponibilidade em 30 dias."
-      - name: avail_next_90
+      - name: avail_next_90d
         description: "Disponibilidade em 90 dias."
 
   - name: delivery_host_summary
