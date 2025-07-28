@@ -9,13 +9,13 @@ with src as (
 
 select
     listing_id
-  ,address.street                                           as street
-  ,address.suburb                                           as suburb
-  ,address.government_area                                  as government_area
-  ,address.market                                           as market
-  ,address.country                                          as country
-  ,address.country_code                                     as country_code
-  ,cast(address.location.coordinates[offset(1)] as FLOAT64) as latitude
-  ,cast(address.location.coordinates[offset(0)] as FLOAT64) as longitude
-  ,cast(address.location.is_location_exact as BOOLEAN)      as is_location_exact
+  ,nullif(address.street, '')                                   as street
+  ,nullif(address.suburb, '')                                   as suburb
+  ,nullif(address.government_area, '')                          as government_area
+  ,nullif(address.market, '')                                   as market
+  ,nullif(address.country, '')                                  as country
+  ,nullif(address.country_code, '')                             as country_code
+  ,cast(address.location.coordinates[offset(1)] as FLOAT64)     as latitude
+  ,cast(address.location.coordinates[offset(0)] as FLOAT64)     as longitude
+  ,cast(address.location.is_location_exact as BOOLEAN)          as is_location_exact
 from src

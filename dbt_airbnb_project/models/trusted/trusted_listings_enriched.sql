@@ -37,13 +37,13 @@ select
   ,h.host_id
   ,h.host_name
   ,h.host_location
-  ,a.street
-  ,a.suburb
-  ,a.government_area
-  ,a.market
-  ,a.country
-  ,a.latitude
-  ,a.longitude
+  ,COALESCE(a.street,'Unknown') AS street
+  ,COALESCE(a.suburb,'Unknown') AS suburb
+  ,COALESCE(a.government_area,'Unknown') AS government_area
+  ,COALESCE(a.market,'Unknown') AS market
+  ,COALESCE(a.country,'Unknown') AS country
+  ,COALESCE(a.latitude, 0.0) AS latitude
+  ,COALESCE(a.longitude,0.0) AS longitude
   ,a.is_location_exact
   ,l.review_scores_rating
   ,l.review_scores_accuracy
