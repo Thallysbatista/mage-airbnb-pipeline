@@ -27,6 +27,8 @@ select
   ,l.market
   ,l.country
   ,l.price
+  ,l.property_type
+  ,l.room_type
   ,l.review_scores_rating            as avg_review_score
   ,coalesce(r.review_count, 0)       as total_reviews
   ,l.available_30                    as avail_next_30d

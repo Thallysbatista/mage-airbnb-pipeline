@@ -33,8 +33,8 @@ select
     l.listing_id
   ,l.name
   ,l.description
-  ,l.property_type
-  ,l.room_type
+  ,COALESCE(l.property_type, 'Unknown') AS property_type
+  ,COALESCE(l.room_type, 'Unknown') AS room_type
   ,l.bed_type
   ,l.minimum_nights
   ,l.maximum_nights
